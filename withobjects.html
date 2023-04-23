@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rock paper scissors</title>
+  </head>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mukta:wght@500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <body>
+    <div class="screen">
+      <h1>rock paper scissors game:</h1>
+      <div class="container">
+          <main class="game">
+            <div class="rock">
+                <button
+                  onclick="
+      pickComputerMove()
+      playGame('rock')
+      "
+                >
+                  <img src="rock.png" alt="" />
+                </button>
+                <h3>ROCK</h3>
+              </div>
+              <div class="paper">
+                <button
+                  onclick="
+                  pickComputerMove()
+                  playGame('paper')
+                  "
+                >
+                  <img src="paper.png" alt="" />
+                </button>
+                <h3>PAPER</h3>
+              </div>
+              <div class="scissors">
+                <button
+                  onclick="
+                          pickComputerMove()
+                      playGame('scissors')
+              "
+                >
+                  <img src="scissors.png" alt="" />
+                </button>
+                <h3>SCISSORS</h3>
+              </div>
+            </div>
+          </main>
+        <section class="btn-reset"><button type="reset" class="reset" onclick="
+            resetScore()
+            ">reset</button></section>
+      
+    </div>
+
+    <script>
+      const score = JSON.parse(localStorage.getItem("score"));
+      console.log(JSON.parse(localStorage.getItem("score")))
+      function pickComputerMove() {
+        const randomObject = Math.floor(Math.random() * 3);
+
+        if (randomObject == 0) {
+          computerMove = "rock";
+        } else if (randomObject == 1) {
+          computerMove = "paper";
+        } else if (randomObject == 2) {
+          computerMove = "scissors";
+        }
+        console.log(computerMove);
+      }
+
+      function playGame(playerMove) {
+        if (playerMove === "rock") {
+          if (computerMove === playerMove) {
+            result = "tie.";
+          } else if (computerMove === "paper") {
+            result = "you lose";
+          } else if (computerMove === "scissors") {
+            result = "you win";
+          }
+        } else if (playerMove === "paper") {
+          if (computerMove === playerMove) {
+            result = "tie.";
+          } else if (computerMove === "scissors") {
+            result = "you lose";
+          } else if (computerMove === "rock") {
+            result = "you win";
+          }
+        } else if (playerMove === "scissors") {
+          if (computerMove === playerMove) {
+            result = "tie.";
+          } else if (computerMove === "rock") {
+            result = "you lose";
+          } else if (computerMove === "paper") {
+            result = "you win";
+          }
+        }
+        if (result === "you win") {
+          score.wins++;
+          console.log(score.wins);
+        } else if (result === "you lose") {
+          score.losses++;
+          console.log(score.losses);
+        } else if (result === "tie.") {
+          score.ties++;
+          console.log(score.ties);
+        }
+        localStorage.setItem('score', JSON.stringify(score))
+      
+        alert(
+          `you picked ${playerMove}. computer picked ${computerMove}, ${result}
+wins: ${score.wins} , losses: ${score.losses} , ties: ${score.ties}`
+        );
+      }
+      function resetScore(){
+        score.wins = 0,
+        score.losses = 0,
+        score.ties = 0
+          alert(`the score has been reseted
+wins: ${score.wins} , losses: ${score.losses} , ties: ${score.ties}`)
+console.log('score has been reseted')
+      }
+      
+      
+    </script>
+  </body>
+</html>
